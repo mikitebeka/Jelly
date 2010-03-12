@@ -1,6 +1,10 @@
 (ns jelly.rss
-  (:use (clojure.contrib seq))
   (:use [clojure.xml :only (parse)]))
+
+; http://markmail.org/message/56r3eflx4a6tasoe
+(defn flatten [x] 
+  (let [s? #(instance? clojure.lang.Sequential %)] 
+    (filter (complement s?) (tree-seq s? seq x)))) 
 
 (defn get-feed [url] (parse url))
 
